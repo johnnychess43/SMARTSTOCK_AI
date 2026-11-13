@@ -33,7 +33,6 @@ def main() -> None:
             average_daily_sales=("units_sold", "mean"),
             average_stock=("stock_available", "mean"),
             average_price_kes=("unit_price_kes", "mean"),
-            stockout_days=("units_sold", lambda values: 0),
         )
     )
     # A stockout proxy: stock available was fully sold on that date.
