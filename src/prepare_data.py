@@ -65,6 +65,10 @@ def main() -> None:
     checks = {
         "negative_units_sold": int((data["units_sold"] < 0).sum()),
         "negative_stock": int((data["stock_available"] < 0).sum()),
+        "non_positive_price": int((data["unit_price_kes"] <= 0).sum()),
+        "non_positive_shelf_life": int((data["shelf_life_days"] <= 0).sum()),
+        "invalid_weekend_flag": int((~data["is_weekend"].isin([0, 1])).sum()),
+        "invalid_payday_flag": int((~data["is_payday_period"].isin([0, 1])).sum()),
         "negative_simulated_demand": int((data["simulated_demand"] < 0).sum()),
         "sales_above_stock": int((data["units_sold"] > data["stock_available"]).sum()),
         "sales_above_simulated_demand": int(
