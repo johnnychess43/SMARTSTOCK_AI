@@ -11,3 +11,8 @@ data/processed/*
 !data/processed/.gitkeep
 data/raw/*.csv
 !data/raw/.gitkeep
+
+# Generated analysis outputs
+reports/*.csv
+reports/*.json
+reports/figures/*.png
