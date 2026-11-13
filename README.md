@@ -2,7 +2,7 @@
 ## Supermarket Demand Forecasting and Inventory Planning
 
 **Project type:** Academic data science project  
-**Status:** Stage 1 — repository foundation and synthetic data generator
+**Status:** Stage 2 — synthetic data generation, validation, and exploratory analysis
 
 ### 1. Problem statement
 A supermarket may lose money when it orders too much fresh produce, dairy, and bakery stock that later expires. It may also lose sales when high-demand products such as milk and bread run out during weekends or end-of-month payday periods. SmartStock AI explores how historical sales patterns and machine learning can support better demand forecasts and replenishment decisions.
@@ -27,9 +27,11 @@ SMARTSTOCK_AI/
 │   └── processed/       # Prepared data (generated locally)
 ├── models/              # Trained model artifacts (generated locally)
 ├── notebooks/           # Exploratory academic notebooks
-├── reports/             # Evaluation outputs and project reports
+├── reports/             # Quality reports, summaries, and charts
 ├── src/
-│   └── generate_data.py # Reproducible synthetic data generator
+│   ├── generate_data.py # Reproducible synthetic data generator
+│   ├── prepare_data.py  # Validation and preparation pipeline
+│   └── explore_data.py  # Exploratory summaries and charts
 ├── .gitignore
 └── requirements.txt
 ```
@@ -45,14 +47,21 @@ pip install -r requirements.txt
 python src/generate_data.py
 ```
 
-The generator writes `data/raw/synthetic_sales.csv`. The dataset contains daily records for eight example products from 1 January 2024 to 31 December 2025. It includes product details, price, discounts, weekend/payday indicators, stock availability, units sold, and simulated demand.
+The generator writes `data/raw/synthetic_sales.csv`. The dataset contains daily records for eight example products from 1 January 2024 to 31 December 2025. It includes product details, price, discounts, weekend/payday indicators, stock availability, units sold, and simulated demand. Run the Stage 2 pipeline in order:
+
+```powershell
+python src/prepare_data.py
+python src/explore_data.py
+```
+
+The preparation script validates required fields, missing values, duplicate date/product records, numeric ranges, and stock/sales consistency. It writes `data/processed/cleaned_sales.csv` and `reports/data_quality_report.json`. The exploration script writes product, daily, weekday, and weekend/payday summary CSV files plus charts under `reports/figures/`.
 
 ### 6. Academic data notice
 **All generated records are simulated.** They are intended for learning and demonstration, not represented as real supermarket point-of-sale records. Sales may be limited by simulated stock availability, so `simulated_demand` is retained separately from `units_sold` to make stockout censoring visible during analysis.
 
 ### 7. Roadmap
-1. Repository foundation and synthetic data generation.
-2. Data validation, cleaning, and exploratory analysis.
+1. Repository foundation and synthetic data generation — completed.
+2. Data validation, preparation, and exploratory analysis — implemented; run locally to generate outputs.
 3. Feature engineering and demand forecasting.
 4. Model evaluation using MAE, RMSE, and MAPE (with care around zero demand).
 5. Inventory and replenishment recommendations.
