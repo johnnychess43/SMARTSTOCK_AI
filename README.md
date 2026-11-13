@@ -56,10 +56,23 @@ python src/explore_data.py
 
 The preparation script validates required fields, missing values, duplicate date/product records, numeric ranges, and stock/sales consistency. It writes `data/processed/cleaned_sales.csv` and `reports/data_quality_report.json`. The exploration script writes product, daily, weekday, and weekend/payday summary CSV files plus charts under `reports/figures/`.
 
-### 6. Academic data notice
+### 6. Run the pipeline from a phone with GitHub Actions
+
+The repository includes a GitHub Actions workflow at `.github/workflows/smartstock-pipeline.yml`. It runs the synthetic-data generation, validation, and exploratory-analysis scripts on GitHub-hosted Ubuntu whenever relevant source files are pushed to `main`, and it can also be started manually:
+
+1. Open the repository on GitHub.
+2. Select **Actions**.
+3. Choose **SmartStock AI - Data Pipeline**.
+4. Select **Run workflow**, keep the branch as `main`, then confirm **Run workflow**.
+5. Open the run and wait for the job to finish.
+6. When successful, download the `smartstock-stage-2-results` artifact. It contains the generated raw and cleaned CSV files, quality report, summary CSVs, and charts.
+
+The workflow runs remotely; a laptop is not required. Generated datasets and reports are stored as a downloadable workflow artifact, not committed into the repository.
+
+### 7. Academic data notice
 **All generated records are simulated.** They are intended for learning and demonstration, not represented as real supermarket point-of-sale records. Sales may be limited by simulated stock availability, so `simulated_demand` is retained separately from `units_sold` to make stockout censoring visible during analysis.
 
-### 7. Roadmap
+### 8. Roadmap
 1. Repository foundation and synthetic data generation — completed.
 2. Data validation, preparation, and exploratory analysis — implemented; run locally to generate outputs.
 3. Feature engineering and demand forecasting.
